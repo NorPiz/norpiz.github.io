@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="Nour Zouine — Gameplay Programmer">
+  <meta property="og:description" content="Gameplay, physics, OST — projects & playables.">
+  <meta property="og:image" content="img/og-cover.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Nour Portfolio — Gameplay Programmer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Nunito+Sans:wght@400;700;900&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="preload" as="video" href="video/idle.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="video/idle.webm" type="video/webm">
+  <link rel="preload" as="video" href="video/jump1.webm" type="video/webm">
+  <link rel="preload" as="video" href="video/jump1.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="video/jump2.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="video/jump2.webm" type="video/webm">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="wrapper header-container">
+      <h1 class="brand">
+        Nour Zouine <span class="divider">|</span> <small>Gameplay Programmer</small>
+      </h1>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#contact" id="btnContact" class="nav-btn">Connect</a></li>
+          <li><a href="https://www.linkedin.com/in/nour-zouine-7a8310141/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/norzouine/" target="_blank" rel="noopener">Instamiligram</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <!-- HERO -->
+    <section id="main-video" aria-label="Hero interactif">
+      <div class="video-container">
+        <!-- Background video (idle by default) -->
+        <video id="bgVideo" playsinline autoplay loop muted aria-label="Fond animé style plateforme">
+          <source src="video/idle.webm" type="video/webm" />
+          <source src="video/idle.mp4"  type="video/mp4" />
+        </video>
+
+        <h2 class="main-title">
+          A fan of <span class="bolds">fun</span>, driven to <span class="bolds">craft</span> it.
+        </h2>
+
+        <div class="cta-row" role="group" aria-label="Raccourcis">
+         <a class="button-cta" id="btnVideoDemos"
+            href="#video-demo" data-target="#video-demo" data-jump="jump2">
+            Jump to My Work
+          </a>
+
+          <a class="button-cta" id="btnOptions"
+            href="#possibilities" data-target="#possibilities" data-jump="jump1">
+            Jump to Hobbies And Links
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIO -->
+    <section id="bio" aria-labelledby="bio-title">
+      <div class="wrapper bio-grid">
+        <img src="myphoto2.png" alt="Portrait de Nour Zouine" />
+        <div>
+          <h2 id="bio-title">- About Me -</h2>
+          <p>
+            Gameplay programmer passionate about systemic mechanics, physics, and crafting memorable experiences —
+            like composing music, I orchestrate gameplay to tell stories.<br>
+            </p>
+            <ul>
+              <h2 id = "bio-title">- Tech: -</h2>
+              <p>Strong in Unity (C#), beginner in Unreal Engine (Blueprints & first steps in C++), Python scripting.</p>
+              <h2 id = "bio-title">- Creative: -</h2>
+              <p>Skilled with Pro Tools & Ableton for music production, sound design, and a bit of DJing. I also enjoy basic video editing to shape ideas into stories.</p>
+              <h2 id = "bio-title">- Inspiration: -</h2>
+              <p>Games like Death Stranding and Outer Wilds fuel my love for crafting worlds where mechanics, narrative, and atmosphere intertwine.</p>
+            </ul>
+          
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMOS -->
+    <!-- DEMOS -->
+<section id="video-demo" aria-labelledby="demos-title">
+  <div class="wrapper">
+    <h2 id="demos-title">- My Work -</h2>
+    <ul class="demos">
+
+      <!-- CARD 1 -->
+      <li class="card">
+        <div class="media">
+          <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
+                 data-src-webm="video/video.webm"
+                 data-src-mp4="video/video.mp4"
+                 aria-label="Chaos Unleashed demo"></video>
+        </div>
+        <div class="text-box">
+          <h3>Re-Orbit — Loop Cycle </h3>
+          <p>A gravity-shifting platformer born from a game jam.</p><br>
+          <ul>
+            <li><strong>Normal Path</strong> — The cycle restarts endlessly, with no credits and no closure.</li>
+            <li><strong>Alternative Path</strong> — Break the loop and reunite with other orbs — but you’re the only one truly alive.</li>
+          </ul>
+          <h4>Core Mechanics &amp; Challenges</h4>
+          <ul>
+            <li><strong>Gravity Shift:</strong> Switch polarity and rotate gravity by 90° or 180° without trapping the player.</li>
+            <li><strong>Hidden Alternate Routes:</strong> Discovery feels intentional, avoiding accidental triggers.</li>
+            <li><strong>Narrative-Mechanic Harmony:</strong> Story, gameplay, and jam theme stay tightly intertwined.</li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- CARD 2 -->
+      <li class="card">
+        <div class="media">
+          <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
+                 data-src-webm="video/Casino.webm"
+                 data-src-mp4="video/Casino.mp4"
+                 aria-label="ProjectDarts"></video>
+        </div>
+        <div class="text-box">
+          <h3>Project DARTS VR — Casino Night</h3>
+          <p>
+            Built for a Winter 2025 faculty event: a VR saloon where players earn points for their faction in
+            two ways — <strong>hit the dartboard</strong> or <strong>hit the jackpot</strong> on a slot machine.
+          </p><br>
+          <h4>Core Features</h4>
+          <ul>
+            <li>Immersive VR saloon experience (room-scale).</li>
+            <li>Darts scoring + slot-machine gameplay feeding a live scoreboard.</li>
+          </ul>
+          <h4>My Role</h4>
+          <ul>
+            <li><strong>Darts scoring logic:</strong> compute polar angle, map angle/ring to wedge and multiplier.</li>
+            <li><strong>Slot machine logic:</strong> reel rotation, timing/stop resolution, payline matching.</li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- CARD 3 -->
+      <li class="card">
+        <div class="media">
+          <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
+                 data-src-webm="video/Ragdollcombat.webm"
+                 data-src-mp4="video/Ragdollcombat.mp4"
+                 aria-label="RagdollPrototype"></video>
+        </div>
+        <div class="text-box">
+          <h3>Ragdoll Combat Prototype</h3>
+          <p>A physics-based prototype exploring dynamic ragdoll behavior and smooth transitions between animated and physics-driven states.</p>
+          <h4>Core Technical Points:</h4>
+          <ul>
+            <li>Rigidbody-based ragdoll system with fine-tuned joint limits.</li>
+            <li>Smooth blending between animation and ragdoll physics for natural reactions.</li>
+            <li>Weapon hit detection and force application for dynamic knockdowns.</li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- CARD 4 -->
+      <li class="card">
+        <div class="media">
+          <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
+                 data-src-webm="video/whathauntsus.webm"
+                 data-src-mp4="video/whathauntsus.mp4"
+                 aria-label="AI Encounters"></video>
+        </div>
+        <div class="text-box">
+          <h3>What Haunts Us (working title)</h3>
+          <p>A cooperative multiplayer puzzle game where a human and their ghostly counterpart must collaborate to solve challenges inside a mysterious mansion. Developed by a 7-member team during the Ubisoft Game Dev Bootcamp 2025.</p>
+          <h4>My Contributions:</h4>
+          <ul>
+            <li>Composed the <strong>entire OST</strong> and <strong>main theme</strong>.</li>
+            <li>Integrated most SFX for immersive feedback and atmosphere.</li>
+            <li>Designed and programmed the “Object Arrangement Puzzle”.</li>
+            <li>Developed and synchronized the grab system using Unity Netcode.</li>
+          </ul>
+          <h4>Technical Highlights:</h4>
+          <ul>
+            <li>Unity Netcode multiplayer synchronization for physics + animations.</li>
+            <li>Full audio pipeline from composition to in-engine implementation.</li>
+            <li>Online puzzle state replication for consistent gameplay.</li>
+          </ul><br>
+          <a href="https://github.com/gamedevUlaval/Ubi-Bootcamp-2025" target="_blank" class="button-ghost">GitHub Repository</a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+    <!-- FAVOURITES / POSSIBILITIES -->
+    <section id="possibilities" aria-labelledby="fav-title">
+      <div class="wrapper">
+        <h2 id="fav-title">Hobbies And Links</h2>
+        <article class="tile" style="background-image:url('img/ost.jpg')">
+          <div class="overlay">
+            <h3>Original Music & Ambience</h3>
+            <p><small>Main theme & ambient tracks composed for my games — atmospheric, immersive, and story-driven.</small></p>
+            <a href="https://soundcloud.com/nour-zouine/sets" class="button-ghost" target="_blank" >Teleport to my SoundCloud for more...</a>
+          </div>
+        </article>
+       <article class="tile" style="background-image:url('img/pacman.jpg')">
+        <div class="overlay">
+          <h3>Links to my games</h3>
+          <p><small>Short links to my builds & pages.</small></p>
+          <a href="#games-links" class="button-ghost">Browse my games</a>
+        </div>
+        </article>
+      </div>
+      <div class="sc-embed">
+      <iframe  loading="lazy"
+        title="Main Theme (What Haunts Us)"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fnour-zouine%2Fmain-theme-what-haunts-us%3Fin%3Dnour-zouine%2Fsets%2Fwhat-haunts-us-working-title&auto_play=false&show_teaser=true"
+      ></iframe>
+      <br>
+      <iframe  loading="lazy"
+        title="Main Theme (What Haunts Us)"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/nour-zouine/main-theme-re-orbit"
+      ></iframe>
+      </div>
+    </section>
+    <section id="games-links" aria-labelledby="games-links-title">
+  <div class="wrapper">
+    <h2 id="games-links-title">Games & Playables</h2>
+
+    <div class="games-grid">
+      <!-- Card 1 -->
+      <article class="game-card">
+        <div class="thumb" style="background-image:url('img/re-orbit.png');"></div>
+        <h3>Re-Orbit — Jam Build</h3>
+        <p class="blurb">Gravity-shift platformer with alternate endings.</p>
+        <ul class="tags">
+          <li>Unity</li><li>Gameplay</li><li>Level design</li><li>Sound</li>
+        </ul>
+        <div class="game-actions">
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://notastronote.itch.io/re-orbit">Play on Itch.io</a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="game-card">
+        <div class="thumb" style="background-image:url('img/Casino2.png');"></div>
+        <h3>Project DARTS VR</h3>
+        <p class="blurb">Room-scale saloon: darts + slot machine scoring.</p>
+        <ul class="tags">
+          <li>Unity</li><li>VR</li>
+        </ul>
+        <div class="game-actions">
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://cdjvul.github.io/Website-CDJVUL/">CDJVUL Website</a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="game-card">
+        <div class="thumb" style="background-image:url('img/whus.png');"></div>
+        <h3>What Haunts Us (WIP)</h3>
+        <p class="blurb">Co-op puzzle: human + ghost collaboration.</p>
+        <ul class="tags">
+          <li>Unity</li><li>Netcode</li><li>OST</li>
+        </ul>
+        <div class="game-actions">
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://github.com/gamedevUlaval/Ubi-Bootcamp-2025">Repo</a>
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://soundcloud.com/nour-zouine">OST</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- CTA global -->
+    <p class="more-games">
+      <a class="button-ghost" target="_blank" rel="noopener" href="https://notastronote.itch.io/">See more on Itch.io</a>
+    </p>
+  </div>
+</section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="wrapper contact-box">
+        <h2 id="contact-title">Establish a Connection</h2>
+        <p>If you want to reach out to me by e-mail, you're welcome.</p>
+        <a class="button-pill" href="mailto:nourzouine@gmail.com" aria-label="Envoyer un e-mail à Nour" >Send an e-mail</a>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+  <div class="wrapper">
+    <p class="foot-note">
+      © 2025 Nour Zouine — All Rights Reserved Composed in code & harmony.
+    </p>
+  </div>
+  </footer>
+</body>
+</html>
