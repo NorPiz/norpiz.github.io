@@ -429,12 +429,106 @@ footer{ border-top:2px solid #000; padding:24px 0; text-align:center; }
 .text-box li{ margin:4px 0 }
 .game-card:hover{ transform: translateY(-5px); box-shadow:0 14px 40px rgba(0,0,0,.5); transition:.18s ease }
 [id]{ outline: none; }           /* évite l’anneau violet par défaut */
-[id]:focus{ outline:2px solid #75ee9d; outline-offset:6px; }
+[id]:focus-visible{ outline:2px solid #75ee9d; outline-offset:6px; }
 @media (max-width:600px){
   .button-cta{font-size:.9rem;padding:8px 12px;border-radius:10px}
   .cta-row{gap:10px}
 }
 @media (prefers-reduced-data: reduce){
   .lazy-demo{ display:none; } /* ou poster-only si tu préfères */
+}
+
+/* =========  A/B Video Crossfade  ========= */
+.video-container { display: grid; grid-template-areas: "vid"; }
+.bg-video {
+  grid-area: vid;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  will-change: opacity, transform;
+}
+.bg-video.active { opacity: 1; }
+
+/* =========  Scroll reveal  ========= */
+.reveal-target {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-target.revealed {
+  opacity: 1;
+  transform: none;
+}
+.demos li.reveal-target:nth-child(2) { transition-delay: 80ms; }
+.demos li.reveal-target:nth-child(3) { transition-delay: 160ms; }
+.demos li.reveal-target:nth-child(4) { transition-delay: 240ms; }
+.games-grid .reveal-target:nth-child(2) { transition-delay: 90ms; }
+.games-grid .reveal-target:nth-child(3) { transition-delay: 180ms; }
+
+/* =========  Glow cursor  ========= */
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #75c2ee;
+  box-shadow: 0 0 10px 5px rgba(117,238,157,0.45);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+body.custom-cursor,
+body.custom-cursor * { cursor: none !important; }
+@media (pointer: coarse) { #cursor-dot { display: none; } }
+
+/* =========  Hero title glitch  ========= */
+.glitch-once {
+  animation: title-glitch 0.85s linear 0.5s forwards;
+}
+@keyframes title-glitch {
+  0%   { text-shadow: -5px 0 #75ee9d,  5px 0 #89b4fa, 2px 2px 4px #000;
+         transform: translate(-50%,-50%) translateX( 4px); }
+  18%  { text-shadow:  5px 0 #75ee9d, -5px 0 #89b4fa, 2px 2px 4px #000;
+         transform: translate(-50%,-50%) translateX(-4px); }
+  36%  { text-shadow: -3px 0 #75ee9d,  3px 0 #89b4fa, 2px 2px 4px #000;
+         transform: translate(-50%,-50%) translateX( 3px); }
+  54%  { text-shadow:  3px 0 #75ee9d, -3px 0 #89b4fa, 2px 2px 4px #000;
+         transform: translate(-50%,-50%) translateX(-2px); }
+  72%  { text-shadow: -1px 0 #75ee9d,  1px 0 #89b4fa, 2px 2px 4px #000;
+         transform: translate(-50%,-50%) translateX( 1px); }
+  100% { text-shadow: 2px 2px 4px #000;
+         transform: translate(-50%,-50%); }
+}
+
+/* =========  Nav scroll-spy  ========= */
+nav a.active {
+  background: var(--accent) !important;
+  color: #000 !important;
+}
+
+/* =========  Card tilt — disable CSS-only hover on desktop (JS handles it) ========= */
+@media (pointer: fine) {
+  .game-card:hover { transform: none; box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+}
+
+/* =========  Button press — Apple-like spring feedback  ========= */
+.button-cta {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease, color 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.button-cta:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.06s ease !important;
+  box-shadow: inset 0 0 0 1px rgba(117,238,157,0.2), 0 2px 8px rgba(0,0,0,.6) !important;
+}
+.button-cta:focus { outline: none; }
+.button-cta:focus-visible {
+  outline: 1px solid rgba(255,255,255,0.45);
+  outline-offset: 3px;
 }
 
