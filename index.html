@@ -28,7 +28,9 @@
       </h1>
       <nav aria-label="Main navigation">
         <ul>
-          <li><a href="#contact" id="btnContact" class="nav-btn">Connect</a></li>
+          <li><a href="#video-demo" data-section="video-demo">Projects</a></li>
+          <li><a href="#possibilities" data-section="possibilities">Hobbies</a></li>
+          <li><a href="#contact" id="btnContact" class="nav-btn" data-section="contact">Connect</a></li>
           <li><a href="https://www.linkedin.com/in/nour-zouine-7a8310141/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://www.instagram.com/norzouine/" target="_blank" rel="noopener">Instagram</a></li>
         </ul>
@@ -40,20 +42,21 @@
     <!-- HERO -->
     <section id="main-video" aria-label="Hero interactif">
       <div class="video-container">
-        <!-- Background video (idle by default) -->
-        <video id="bgVideo" playsinline autoplay loop muted aria-label="Fond animé style plateforme">
+        <!-- Background videos: A/B crossfade -->
+        <video id="bgVideoA" class="bg-video active" playsinline autoplay loop muted aria-label="Fond animé style plateforme">
           <source src="video/idle.webm" type="video/webm" />
           <source src="video/idle.mp4"  type="video/mp4" />
         </video>
+        <video id="bgVideoB" class="bg-video" playsinline muted aria-hidden="true"></video>
 
-        <h2 class="main-title">
+        <h2 class="main-title glitch-once">
           A fan of <span class="bolds">fun</span>, driven to <span class="bolds">craft</span> it.
         </h2>
 
         <div class="cta-row" role="group" aria-label="Raccourcis">
          <a class="button-cta" id="btnVideoDemos"
             href="#video-demo" data-target="#video-demo" data-jump="jump2">
-            Jump to My Work
+            Jump to Projects
           </a>
 
           <a class="button-cta" id="btnOptions"
@@ -66,20 +69,20 @@
 
     <!-- BIO -->
     <section id="bio" aria-labelledby="bio-title">
-      <div class="wrapper bio-grid">
+      <div class="wrapper bio-grid reveal-target">
         <img src="myphoto2.png" alt="Portrait de Nour Zouine" />
         <div>
-          <h2 id="bio-title">- About Me -</h2>
+          <h2 id="bio-title">About Me</h2>
           <p>
-            Gameplay programmer passionate about systemic mechanics, physics, and crafting memorable experiences —
-            like composing music, I orchestrate gameplay to tell stories.<br>
+            Gameplay programmer passionate about systemic mechanics, physics, and crafting memorable experiences,
+            like composing music, I love making gameplay to tell stories while having fun.<br>
             </p>
             <ul>
-              <h2 id = "bio-title">- Tech: -</h2>
-              <p>Strong in Unity (C#), beginner in Unreal Engine (Blueprints & first steps in C++), Python scripting.</p>
-              <h2 id = "bio-title">- Creative: -</h2>
+              <h2 id = "bio-title">Technical</h2>
+              <p>Strong in Unity (C#), beginner in Unreal Engine (Blueprints),C++, Python scripting.</p>
+              <h2 id = "bio-title">My Audio Side</h2>
               <p>Skilled with Pro Tools & Ableton for music production, sound design, and a bit of DJing. I also enjoy basic video editing to shape ideas into stories.</p>
-              <h2 id = "bio-title">- Inspiration: -</h2>
+              <h2 id = "bio-title">My Inspirations</h2>
               <p>Games like Death Stranding and Outer Wilds fuel my love for crafting worlds where mechanics, narrative, and atmosphere intertwine.</p>
             </ul>
           
@@ -89,14 +92,39 @@
     </section>
 
     <!-- DEMOS -->
-    <!-- DEMOS -->
 <section id="video-demo" aria-labelledby="demos-title">
   <div class="wrapper">
-    <h2 id="demos-title">- My Work -</h2>
+    <h2 id="demos-title">Projects</h2>
     <ul class="demos">
 
       <!-- CARD 1 -->
-      <li class="card">
+      <li class="card reveal-target">
+        <div class="media">
+          <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
+                 data-src-webm="video/video.webm"
+                 data-src-mp4="video/Arcadium.mp4"
+                 aria-label="Chaos Unleashed demo"></video>
+        </div>
+        <div class="text-box">
+          <h3>Arcadium Trip (GameLab Ubisoft 2026)</h3>
+          <p>4 Players Competitive Platformer | Gameplay & Systems Programmer / Audio Lead</p><br>
+          <ul>
+            <li> A fast-paced 4 Players-versus shooting platformer developed for the Ubisoft Game Lab Competition,</li>
+            <li>requiring strong technical rigor and high "Arcade" polish.</li>
+          </ul>
+          <h4>My Contributions</h4>
+          <ul>
+            <li><strong>Gameplay & Player Controller:</strong> Programmed the PlayerMovement and PlayerCombat systems, implementing stomp attacks, projectiles, torpedoes, and a custom Aim Assist for fluid arena fights.</li>
+            <li><strong>Systems Architecture:</strong> Programmed the core game loop via a custom State Machine (RoundManager) and designed a smart, dynamic Respawn Algorithm to prevent unfair deaths.</li>
+            <li><strong>Game Feel & UI:</strong> Utilized DOTween for polished, sequential scoreboard reveals and built a persistent FadeManager for seamless scene transitions</li>
+            <li><strong>Audio Engineering:</strong> Developed a robust AudioManager for dynamic crossfades and accessibility, while composing the game's original 8-bit soundtracks.</li>
+            <li><strong>DevOps & Delivery:</strong> Acted as the technical pillar during the final crunch, resolving critical Git merge conflicts and stabilizing the codebase for on-time delivery.</li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- CARD 1 -->
+      <li class="card reveal-target">
         <div class="media">
           <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
                  data-src-webm="video/video.webm"
@@ -104,7 +132,7 @@
                  aria-label="Chaos Unleashed demo"></video>
         </div>
         <div class="text-box">
-          <h3>Re-Orbit — Loop Cycle </h3>
+          <h3>Re-Orbit</h3>
           <p>A gravity-shifting platformer born from a game jam.</p><br>
           <ul>
             <li><strong>Normal Path</strong> — The cycle restarts endlessly, with no credits and no closure.</li>
@@ -120,7 +148,7 @@
       </li>
 
       <!-- CARD 2 -->
-      <li class="card">
+      <li class="card reveal-target">
         <div class="media">
           <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
                  data-src-webm="video/Casino.webm"
@@ -128,10 +156,10 @@
                  aria-label="ProjectDarts"></video>
         </div>
         <div class="text-box">
-          <h3>Project DARTS VR — Casino Night</h3>
+          <h3>Project DARTS VR</h3>
           <p>
             Built for a Winter 2025 faculty event: a VR saloon where players earn points for their faction in
-            two ways — <strong>hit the dartboard</strong> or <strong>hit the jackpot</strong> on a slot machine.
+            two ways <strong>hit the dartboard</strong> or <strong>hit the jackpot</strong> on a slot machine.
           </p><br>
           <h4>Core Features</h4>
           <ul>
@@ -147,7 +175,7 @@
       </li>
 
       <!-- CARD 3 -->
-      <li class="card">
+      <li class="card reveal-target">
         <div class="media">
           <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
                  data-src-webm="video/Ragdollcombat.webm"
@@ -167,7 +195,7 @@
       </li>
 
       <!-- CARD 4 -->
-      <li class="card">
+      <li class="card reveal-target">
         <div class="media">
           <video class="lazy-demo" width="480" height="320" playsinline muted loop preload="none"
                  data-src-webm="video/Whathauntsus.webm"
@@ -193,7 +221,6 @@
           <a href="https://github.com/gamedevUlaval/Ubi-Bootcamp-2025" target="_blank" class="button-ghost">GitHub Repository</a>
         </div>
       </li>
-
     </ul>
   </div>
 </section>
@@ -202,14 +229,14 @@
     <section id="possibilities" aria-labelledby="fav-title">
       <div class="wrapper">
         <h2 id="fav-title">Hobbies And Links</h2>
-        <article class="tile" style="background-image:url('img/ost.jpg')">
+        <article class="tile reveal-target" style="background-image:url('img/ost.jpg')">
           <div class="overlay">
             <h3>Original Music & Ambience</h3>
             <p><small>Main theme & ambient tracks composed for my games — atmospheric, immersive, and story-driven.</small></p>
             <a href="https://soundcloud.com/nour-zouine/sets" class="button-ghost" target="_blank" >Teleport to my SoundCloud for more...</a>
           </div>
         </article>
-       <article class="tile" style="background-image:url('img/pacman.jpg')">
+       <article class="tile reveal-target" style="background-image:url('img/pacman.jpg')">
         <div class="overlay">
           <h3>Links to my games</h3>
           <p><small>Short links to my builds & pages.</small></p>
@@ -217,7 +244,7 @@
         </div>
         </article>
       </div>
-      <div class="sc-embed">
+      <div class="sc-embed reveal-target">
       <iframe  loading="lazy"
         title="Main Theme (What Haunts Us)"
         scrolling="no"
@@ -241,9 +268,9 @@
 
     <div class="games-grid">
       <!-- Card 1 -->
-      <article class="game-card">
+      <article class="game-card reveal-target">
         <div class="thumb" style="background-image:url('img/re-orbit.png');"></div>
-        <h3>Re-Orbit — Jam Build</h3>
+        <h3>Re-Orbit</h3>
         <p class="blurb">Gravity-shift platformer with alternate endings.</p>
         <ul class="tags">
           <li>Unity</li><li>Gameplay</li><li>Level design</li><li>Sound</li>
@@ -254,7 +281,34 @@
       </article>
 
       <!-- Card 2 -->
-      <article class="game-card">
+      <article class="game-card reveal-target">
+        <div class="thumb" style="background-image:url('img/Arcadium.png');"></div>
+        <h3>Arcadium Trip (GameLab Ubisoft 2026)</h3>
+        <p class="blurb">4 Players-versus Shooting Platformer</p>
+        <ul class="tags">
+          <li>Unity</li><li>Multiplayer</li>
+        </ul>
+        <div class="game-actions">
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://dev-devy.itch.io/arcadium-trip">Play On Itch.io</a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="game-card reveal-target">
+        <div class="thumb" style="background-image:url('img/whus.png');"></div>
+        <h3>What Haunts Us (WIP)</h3>
+        <p class="blurb">Co-op puzzle: human + ghost collaboration.</p>
+        <ul class="tags">
+          <li>Unity</li><li>Netcode Multiplayer</li><li>OST</li>
+        </ul>
+        <div class="game-actions">
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://github.com/gamedevUlaval/Ubi-Bootcamp-2025">Repo</a>
+          <a class="button-ghost" target="_blank" rel="noopener" href="https://soundcloud.com/nour-zouine">OST</a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="game-card reveal-target">
         <div class="thumb" style="background-image:url('img/Casino2.png');"></div>
         <h3>Project DARTS VR</h3>
         <p class="blurb">Room-scale saloon: darts + slot machine scoring.</p>
@@ -263,20 +317,6 @@
         </ul>
         <div class="game-actions">
           <a class="button-ghost" target="_blank" rel="noopener" href="https://cdjvul.github.io/Website-CDJVUL/#/projet/6aa73181faa5900d85238051cae37b73">CDJVUL Website</a>
-        </div>
-      </article>
-
-      <!-- Card 3 -->
-      <article class="game-card">
-        <div class="thumb" style="background-image:url('img/whus.png');"></div>
-        <h3>What Haunts Us (WIP)</h3>
-        <p class="blurb">Co-op puzzle: human + ghost collaboration.</p>
-        <ul class="tags">
-          <li>Unity</li><li>Netcode</li><li>OST</li>
-        </ul>
-        <div class="game-actions">
-          <a class="button-ghost" target="_blank" rel="noopener" href="https://github.com/gamedevUlaval/Ubi-Bootcamp-2025">Repo</a>
-          <a class="button-ghost" target="_blank" rel="noopener" href="https://soundcloud.com/nour-zouine">OST</a>
         </div>
       </article>
     </div>
@@ -305,5 +345,6 @@
     </p>
   </div>
   </footer>
+  <div id="cursor-dot" aria-hidden="true"></div>
 </body>
 </html>
