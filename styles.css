@@ -167,6 +167,7 @@ nav a:hover{ background:var(--panel-2); color:#000; border-color:#fff; }
 .bio-grid{
   display:grid; grid-template-columns:320px 1fr; gap:2rem; align-items:center;
 }
+.bio-no-photo{ grid-template-columns:1fr; max-width:800px; text-align:center; }
 #bio img{
   width:100%; max-width:320px; aspect-ratio:3/4; object-fit:cover; border-radius:32px;
   box-shadow:0 10px 20px rgba(0,0,0,.5);
