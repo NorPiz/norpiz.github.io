@@ -161,6 +161,159 @@ function initDom() {
 }
 
 // ------------------------------------------------------------
+//  star hunt — 7 hidden stars, coin sounds, final score
+// ------------------------------------------------------------
+function initStarHunt() {
+  const TOTAL = 7;
+  let found = 0;
+
+  // HUD counter
+  const hud = document.createElement("div");
+  hud.className = "star-hud";
+  hud.innerHTML = `<span class="hud-star">★</span><span id="hudCount">0</span>/${TOTAL}`;
+  document.body.appendChild(hud);
+
+  // synthesized Mario-style coin blip (no audio asset needed)
+  let actx = null;
+  function coinSound() {
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const t0 = actx.currentTime;
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(987.77, t0);         // B5…
+      osc.frequency.setValueAtTime(1318.51, t0 + 0.08); // …then E6
+      gain.gain.setValueAtTime(0.12, t0);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.45);
+      osc.connect(gain).connect(actx.destination);
+      osc.start(t0);
+      osc.stop(t0 + 0.5);
+    } catch { /* no sound, no problem */ }
+  }
+
+  const STAR_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.6 5.9 20.2l1.5-6.8L2.2 8.8l6.9-.7z" fill="#ffc93c" stroke="#2d2a32" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+
+  // one star per zone, at a random spot — new hiding places on every visit
+  const zones = ["hero", "about", "projects", "projects", "music", "games", "contact"];
+  for (const id of zones) {
+    const host = document.getElementById(id);
+    if (!host) continue;
+    const star = document.createElement("button");
+    star.className = "collect-star";
+    star.setAttribute("aria-label", "Hidden star — click to collect!");
+    star.innerHTML = STAR_SVG;
+    star.style.left = (4 + Math.random() * 88).toFixed(2) + "%";
+    star.style.top = (8 + Math.random() * 78).toFixed(2) + "%";
+    star.style.animationDelay = (-Math.random() * 2.6).toFixed(2) + "s";
+    star.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+    star.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+    star.addEventListener("click", (e) => collect(star, e), { once: true });
+    host.appendChild(star);
+  }
+
+  function collect(star, e) {
+    found++;
+    coinSound();
+    document.body.classList.remove("cursor-hover");
+    star.classList.add("popped");
+    setTimeout(() => star.remove(), 500);
+
+    const x = e.clientX, y = e.clientY;
+
+    // +100 floats up from the click
+    const pts = document.createElement("div");
+    pts.className = "float-score";
+    pts.textContent = "+100";
+    pts.style.left = `${x + 12}px`;
+    pts.style.top = `${y - 24}px`;
+    document.body.appendChild(pts);
+    setTimeout(() => pts.remove(), 950);
+
+    // a spinning coin flies into the counter
+    const coin = document.createElement("div");
+    coin.className = "coin-fly";
+    coin.textContent = "★";
+    coin.style.left = `${x - 15}px`;
+    coin.style.top = `${y - 15}px`;
+    document.body.appendChild(coin);
+    const hudR = hud.getBoundingClientRect();
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        coin.style.left = `${hudR.left + 12}px`;
+        coin.style.top = `${hudR.top + 6}px`;
+        coin.style.opacity = "0.2";
+      })
+    );
+    setTimeout(() => {
+      coin.remove();
+      document.getElementById("hudCount").textContent = found;
+      hud.classList.remove("bump");
+      void hud.offsetWidth; // restart the bump animation
+      hud.classList.add("bump");
+      maybeShowScore(); // collecting the last star while already at the bottom
+    }, 640);
+  }
+
+  // final score panel, revealed when you reach the end of the page
+  const overlay = document.createElement("div");
+  overlay.className = "score-overlay";
+  overlay.hidden = true;
+  overlay.innerHTML = `
+    <div class="score-card">
+      <p class="score-kicker mono">// LEVEL COMPLETE</p>
+      <h3>Final score</h3>
+      <p class="score-big"><span class="hud-star">★</span> <span id="scoreNum">0</span>/${TOTAL}</p>
+      <p class="score-pts" id="scorePts"></p>
+      <p class="score-msg" id="scoreMsg"></p>
+      <button class="btn btn-solid" id="scoreClose">Keep exploring</button>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector("#scoreClose").addEventListener("click", () => (overlay.hidden = true));
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.hidden = true; });
+
+  function showScore() {
+    overlay.querySelector("#scoreNum").textContent = found;
+    overlay.querySelector("#scorePts").textContent = `SCORE: ${found * 100} PTS`;
+    const missing = TOTAL - found;
+    overlay.querySelector("#scoreMsg").textContent =
+      found === TOTAL
+        ? "PERFECT! You found every hidden star certified completionist 🏆"
+        : found === 0
+          ? `${TOTAL} stars are hiding around this page… scroll back up and hunt them down!`
+          : `Nice run! But ${missing} star${missing > 1 ? "s are" : " is"} still hiding somewhere up there…`;
+    overlay.hidden = false;
+
+    if (found === TOTAL) {
+      const colors = ["#ff7a5c", "#ffc93c", "#6cc4ff", "#7edcb4", "#b892f0"];
+      for (let i = 0; i < 60; i++) {
+        const c = document.createElement("i");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "%";
+        c.style.background = colors[i % colors.length];
+        c.style.animationDelay = (Math.random() * 0.8).toFixed(2) + "s";
+        c.style.animationDuration = (1.8 + Math.random() * 1.4).toFixed(2) + "s";
+        overlay.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+      }
+    }
+  }
+
+  // reveal the score only when the visitor truly reaches the end of the page,
+  // and only once per star count (collect more → it can show again)
+  let lastShownCount = -1;
+  function maybeShowScore() {
+    const atBottom =
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 24;
+    if (atBottom && overlay.hidden && lastShownCount !== found) {
+      lastShownCount = found;
+      showScore();
+    }
+  }
+  window.addEventListener("scroll", maybeShowScore, { passive: true });
+}
+
+// ------------------------------------------------------------
 //  helpers
 // ------------------------------------------------------------
 let THREE = null;
@@ -588,6 +741,18 @@ async function initAvatar() {
   friendBall.position.set(1.2, -0.5, -0.3);
   scene.add(friendBall);
 
+  // dizzy stars — orbit the head when you shake the cursor too fast
+  const dizzyGroup = new THREE.Group();
+  dizzyGroup.position.set(0, 1.85, 0);
+  dizzyGroup.visible = false;
+  for (let i = 0; i < 3; i++) {
+    dizzyGroup.add(new THREE.Mesh(starGeometry(0.13, 0.055, 5, 0.05), toon(COLORS.yellow)));
+  }
+  avatar.add(dizzyGroup);
+
+  const caption = card.querySelector(".avatar-caption");
+  const captionText = caption ? caption.textContent : "";
+
   // ----- sizing -----
   function resize() {
     const w = card.clientWidth, h = card.clientHeight;
@@ -601,14 +766,40 @@ async function initAvatar() {
 
   // ----- look at the cursor -----
   let yaw = 0, pitch = 0, blink = 1, nextBlink = 2.5, t = 0;
+  let lastMX = pointer.px, lastMY = pointer.py, speedAvg = 0;
+  let dizzyStart = 0, dizzyUntil = -1, cooldownUntil = 0;
   const clock = new THREE.Clock();
 
   function renderFrame() {
     const dt = Math.min(clock.getDelta(), 0.05);
     t += dt;
 
+    // detect frantic cursor shaking → dizziness
+    const mdx = pointer.px - lastMX, mdy = pointer.py - lastMY;
+    lastMX = pointer.px;
+    lastMY = pointer.py;
+    if (dt > 0) {
+      const speed = Math.min(Math.hypot(mdx, mdy) / dt, 9000); // px per second
+      speedAvg += (speed - speedAvg) * 0.05;
+    }
+    if (finePointer && speedAvg > 2600 && t > cooldownUntil) {
+      dizzyStart = t;
+      dizzyUntil = t + 2.6;
+      cooldownUntil = dizzyUntil + 3;
+      speedAvg = 0;
+      if (caption) caption.textContent = "@_@ whoa… too fast!!";
+    }
+    const dizzy = t < dizzyUntil;
+    if (!dizzy && dizzyGroup.visible) {
+      dizzyGroup.visible = false;
+      if (caption) caption.textContent = captionText;
+    }
+
     let targetYaw, targetPitch;
-    if (finePointer) {
+    if (dizzy) {
+      targetYaw = 0; // recenters while the world spins
+      targetPitch = 0.08;
+    } else if (finePointer) {
       const r = canvas.getBoundingClientRect();
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height * 0.42;
@@ -620,14 +811,33 @@ async function initAvatar() {
     }
     yaw += (targetYaw - yaw) * 0.09;
     pitch += (targetPitch - pitch) * 0.09;
-    head.rotation.y = yaw;
-    head.rotation.x = pitch;
-    head.rotation.z = yaw * 0.08;
 
-    // pupils lead the look a touch
-    for (const p of pupils) {
-      p.position.x = yaw * 0.05;
-      p.position.y = -pitch * 0.04;
+    // wobble fades out as the dizziness wears off
+    const k = dizzy ? 1 - (t - dizzyStart) / 2.6 : 0;
+    const dtz = t - dizzyStart;
+    head.rotation.y = yaw + Math.sin(dtz * 9) * 0.4 * k;
+    head.rotation.x = pitch + Math.sin(dtz * 6.4) * 0.12 * k;
+    head.rotation.z = yaw * 0.08 + Math.sin(dtz * 7.3) * 0.22 * k;
+
+    // pupils: spin in circles while dizzy, otherwise lead the look a touch
+    for (let i = 0; i < pupils.length; i++) {
+      const p = pupils[i];
+      if (dizzy) {
+        p.position.x = Math.cos(t * 13 + i * Math.PI) * 0.055;
+        p.position.y = Math.sin(t * 13 + i * Math.PI) * 0.055;
+      } else {
+        p.position.x = yaw * 0.05;
+        p.position.y = -pitch * 0.04;
+      }
+    }
+
+    if (dizzy) {
+      dizzyGroup.visible = true;
+      dizzyGroup.children.forEach((s, i) => {
+        const a = t * 4 + (i * Math.PI * 2) / 3;
+        s.position.set(Math.cos(a) * 0.55, Math.sin(t * 5 + i) * 0.07, Math.sin(a) * 0.55);
+        s.rotation.z = t * 5 + i;
+      });
     }
 
     // blink
@@ -663,6 +873,7 @@ async function initAvatar() {
 // ------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   initDom();
+  initStarHunt();
   (async () => {
     THREE = await import("three");
     await initSky();
